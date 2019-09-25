@@ -5,8 +5,9 @@ export const environment = {
     authDomain: "alicegproject2.firebaseapp.com",
     databaseURL: "https://alicegproject2.firebaseio.com",
     projectId: "alicegproject2",
-    storageBucket: "",
+    storageBucket: "alicegproject2.appspot.com",
     messagingSenderId: "37738620895",
-    appId: "1:37738620895:web:ba36253d6a58c6c502866a"
+    appId: "1:37738620895:web:48be779d019b3dd502866a",
+    measurementId: "G-ZF1M6LXE23"
   }
 };
