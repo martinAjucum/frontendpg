@@ -37,11 +37,9 @@ onSubmit() {
   const formData = new FormData();
     formData.append('file', this.fileData);
     this.http.post('http://127.0.0.1:5000', formData)
-    //this.http.get('http://127.0.0.1:5000')
        .subscribe(res => {
         this.serverData = res as JSON;
          console.log(this.serverData);
-        //this.uploadedFilePath = res.data.filePath;
          alert('SUCCESS !!');
        })
   // this.http.get('http://127.0.0.1:5000/').subscribe(data => {
