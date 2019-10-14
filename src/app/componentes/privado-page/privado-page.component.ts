@@ -39,7 +39,7 @@ onSubmit() {
     this.http.post('http://127.0.0.1:5000', formData)
        .subscribe(res => {
         this.serverData = res as JSON;
-         console.log(this.serverData);
+         console.log(this.serverData );
          alert('SUCCESS !!');
        })
   // this.http.get('http://127.0.0.1:5000/').subscribe(data => {

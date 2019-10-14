@@ -21,6 +21,19 @@ import { AuthGuard } from './guards/auth.guard';
 import { HttpClientModule } from '@angular/common/http';
 import { GraficoComponent } from './componentes/grafico/grafico.component';
 
+// Import angular-fusioncharts
+import { FusionChartsModule } from 'angular-fusioncharts';
+
+// Import FusionCharts library
+import * as FusionCharts from 'fusioncharts';
+
+// Load FusionCharts Individual Charts
+import * as Charts from 'fusioncharts/fusioncharts.charts';
+
+// Use fcRoot function to inject FusionCharts library, and the modules you want to use
+FusionChartsModule.fcRoot(FusionCharts, Charts)
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -38,7 +51,8 @@ import { GraficoComponent } from './componentes/grafico/grafico.component';
     FormsModule,
     AngularFireAuthModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
-    HttpClientModule
+    HttpClientModule,
+    FusionChartsModule // Include in imports
   ],
   providers: [AuthService, AuthGuard],
   bootstrap: [AppComponent]
