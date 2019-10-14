@@ -19,6 +19,7 @@ import { AuthService } from './servicios/auth.service';
 import { AuthGuard } from './guards/auth.guard';
 
 import { HttpClientModule } from '@angular/common/http';
+import { GraficoComponent } from './componentes/grafico/grafico.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { HttpClientModule } from '@angular/common/http';
     RegisterPageComponent,
     LoginPageComponent,
     PrivadoPageComponent,
-    NotFoundPageComponent
+    NotFoundPageComponent,
+    GraficoComponent
   ],
   imports: [
     BrowserModule,
