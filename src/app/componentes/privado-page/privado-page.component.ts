@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient,HttpHeaders } from '@angular/common/http';
+import { PrediccionService } from '../../servicios/prediccion.service';
 
 @Component({
   selector: 'app-privado-page',
@@ -12,41 +13,31 @@ export class PrivadoPageComponent implements OnInit {
   fileUploadProgress: string = null;
   uploadedFilePath: string = null;
   serverData: JSON;
-  constructor(private http: HttpClient) { }
-
-  fileProgress(fileInput: any) {
-    this.fileData = <File>fileInput.target.files[0];
-    this.preview();
-}
-
-preview() {
-  // Show preview 
-  var mimeType = this.fileData.type;
-  if (mimeType.match(/image\/*/) == null) {
-    return;
+  constructor(private http: HttpClient, 
+    public predict: PrediccionService) { }
+    fileProgress(fileInput: any) {
+      this.fileData = <File>fileInput.target.files[0];
+      this.preview();
+  }
+  
+  preview() {
+    // Show preview 
+    var mimeType = this.fileData.type;
+    if (mimeType.match(/image\/*/) == null) {
+      return;
+    }
+  
+    var reader = new FileReader();      
+    reader.readAsDataURL(this.fileData); 
+    reader.onload = (_event) => { 
+      this.previewUrl = reader.result; 
+    }
   }
 
-  var reader = new FileReader();      
-  reader.readAsDataURL(this.fileData); 
-  reader.onload = (_event) => { 
-    this.previewUrl = reader.result; 
+  onSubmit() {
+  this.predict.sendimage(this.fileData);
+  //alert('SUCCESS !!');
   }
-}
-
-onSubmit() {
-  const formData = new FormData();
-    formData.append('file', this.fileData);
-    this.http.post('http://127.0.0.1:5000', formData)
-       .subscribe(res => {
-        this.serverData = res as JSON;
-         console.log(this.serverData );
-         alert('SUCCESS !!');
-       })
-  // this.http.get('http://127.0.0.1:5000/').subscribe(data => {
-  //     this.serverData = data as JSON;
-  //     console.log(this.serverData);
-  //   })
-}
   ngOnInit() {
   }
 
