@@ -13,6 +13,7 @@ export class PrivadoPageComponent implements OnInit {
   fileUploadProgress: string = null;
   uploadedFilePath: string = null;
   serverData: JSON;
+  showVar: boolean = false;
   constructor(private http: HttpClient, 
     public predict: PrediccionService) { }
     fileProgress(fileInput: any) {
@@ -36,7 +37,9 @@ export class PrivadoPageComponent implements OnInit {
 
   onSubmit() {
   this.predict.sendimage(this.fileData);
+  
   //alert('SUCCESS !!');
+  this.showVar = !this.showVar;
   }
   ngOnInit() {
   }
