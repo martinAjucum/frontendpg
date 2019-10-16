@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient,HttpHeaders } from '@angular/common/http';
 import { PrediccionService } from '../../servicios/prediccion.service';
+import { SharedServiceService } from '../../servicios/shared-service.service';
+import { CompileShallowModuleMetadata } from '@angular/compiler';
 
 @Component({
   selector: 'app-privado-page',
@@ -14,8 +16,28 @@ export class PrivadoPageComponent implements OnInit {
   uploadedFilePath: string = null;
   serverData: JSON;
   showVar: boolean = false;
-  constructor(private http: HttpClient, 
-    public predict: PrediccionService) { }
+  dataSource: Object;
+
+  constructor( public predict: PrediccionService,
+    public sharedService: SharedServiceService) {
+      this.dataSource = {
+        "chart": {
+          "caption": "Resultados",
+          "subCaption": "Deteccion de neumonia con Deep Learning",
+          "xAxisName": "Estado",
+          "yAxisName": "Probabilidad",
+          "numberSuffix": "%",
+          "theme": "fusion",
+        },
+        "data": [{
+          "label": "NORMAL",
+          "value": "0"
+        }, {
+          "label": "PNEUMONIA",
+          "value": "0"
+        }]
+      };
+     }
     fileProgress(fileInput: any) {
       this.fileData = <File>fileInput.target.files[0];
       this.preview();
@@ -36,11 +58,34 @@ export class PrivadoPageComponent implements OnInit {
   }
 
   onSubmit() {
-  this.predict.sendimage(this.fileData);
-  
+  this.predict.sendimage(this.fileData)
+  .subscribe(res => {
+      let serverData = res as JSON;
+      this.sharedService.setData(serverData);
+      console.log(this.sharedService.getData());
+      this.dataSource = {
+        "chart": {
+          "caption": "Resultados",
+          "subCaption": "Deteccion de neumonia con Deep Learning",
+          "xAxisName": "Estado",
+          "yAxisName": "Probabilidad",
+          "numberSuffix": "%",
+          "theme": "fusion",
+        },
+        "data": [{
+          "label": serverData[0].class,
+          "value": serverData[0].probability
+        }, {
+          "label": serverData[1].class,
+          "value": serverData[1].probability
+        }]
+      };
+      this.showVar = !this.showVar;
+     })
   //alert('SUCCESS !!');
-  this.showVar = !this.showVar;
   }
+
+  
   ngOnInit() {
   }
 
