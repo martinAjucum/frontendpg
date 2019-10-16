@@ -15,8 +15,28 @@ export class PrivadoPageComponent implements OnInit {
   uploadedFilePath: string = null;
   serverData: JSON;
   showVar: boolean = false;
+  dataSource: Object;
+
   constructor( public predict: PrediccionService,
-    public sharedService: SharedServiceService) { }
+    public sharedService: SharedServiceService) {
+      this.dataSource = {
+        "chart": {
+          "caption": "Resultados",
+          "subCaption": "Deteccion de neumonia con Deep Learning",
+          "xAxisName": "Estado",
+          "yAxisName": "Probabilidad",
+          "numberSuffix": "%",
+          "theme": "fusion",
+        },
+        "data": [{
+          "label": "NORMAL",
+          "value": "0"
+        }, {
+          "label": "PNEUMONIA",
+          "value": "0"
+        }]
+      };
+     }
     fileProgress(fileInput: any) {
       this.fileData = <File>fileInput.target.files[0];
       this.preview();
@@ -46,6 +66,8 @@ export class PrivadoPageComponent implements OnInit {
   //alert('SUCCESS !!');
   this.showVar = !this.showVar;
   }
+
+  
   ngOnInit() {
   }
 

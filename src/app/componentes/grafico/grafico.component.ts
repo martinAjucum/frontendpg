@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { SharedServiceService } from '../../servicios/shared-service.service';
+import { Component, OnInit, Input } from '@angular/core';
+
 
 @Component({
   selector: 'app-grafico',
@@ -9,6 +9,7 @@ import { SharedServiceService } from '../../servicios/shared-service.service';
 export class GraficoComponent implements OnInit {
   dataSource: Object;
   chartConfig: Object;
+  @Input() data: Object;
   constructor() { 
     this.chartConfig = {
       width: '400',
@@ -16,24 +17,6 @@ export class GraficoComponent implements OnInit {
       type: 'column2d',
       dataFormat: 'json',
   }; 
-  
-   this.dataSource = {
-            "chart": {
-              "caption": "Resultados",
-              "subCaption": "Deteccion de neumonia con Deep Learning",
-              "xAxisName": "Estado",
-              "yAxisName": "Probabilidad",
-              "numberSuffix": "%",
-              "theme": "fusion",
-            },
-            "data": [{
-              "label": "NORMAL",
-              "value": "0"
-            }, {
-              "label": "PNEUMONIA",
-              "value": "0"
-            }]
-          };
   }
 
   ngOnInit() {
