@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { SharedServiceService } from '../../servicios/shared-service.service';
 
 @Component({
   selector: 'app-grafico',
@@ -27,10 +28,10 @@ export class GraficoComponent implements OnInit {
             },
             "data": [{
               "label": "NORMAL",
-              "value": "86"
+              "value": "0"
             }, {
               "label": "PNEUMONIA",
-              "value": "14"
+              "value": "0"
             }]
           };
   }
