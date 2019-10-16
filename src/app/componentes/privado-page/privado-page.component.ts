@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient,HttpHeaders } from '@angular/common/http';
 import { PrediccionService } from '../../servicios/prediccion.service';
 import { SharedServiceService } from '../../servicios/shared-service.service';
+import { CompileShallowModuleMetadata } from '@angular/compiler';
 
 @Component({
   selector: 'app-privado-page',
@@ -62,9 +63,26 @@ export class PrivadoPageComponent implements OnInit {
       let serverData = res as JSON;
       this.sharedService.setData(serverData);
       console.log(this.sharedService.getData());
+      this.dataSource = {
+        "chart": {
+          "caption": "Resultados",
+          "subCaption": "Deteccion de neumonia con Deep Learning",
+          "xAxisName": "Estado",
+          "yAxisName": "Probabilidad",
+          "numberSuffix": "%",
+          "theme": "fusion",
+        },
+        "data": [{
+          "label": serverData[0].class,
+          "value": serverData[0].probability
+        }, {
+          "label": serverData[1].class,
+          "value": serverData[1].probability
+        }]
+      };
+      this.showVar = !this.showVar;
      })
   //alert('SUCCESS !!');
-  this.showVar = !this.showVar;
   }
 
   
