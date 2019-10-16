@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient,HttpHeaders } from '@angular/common/http';
 import { PrediccionService } from '../../servicios/prediccion.service';
+import { SharedServiceService } from '../../servicios/shared-service.service';
 
 @Component({
   selector: 'app-privado-page',
@@ -14,8 +15,8 @@ export class PrivadoPageComponent implements OnInit {
   uploadedFilePath: string = null;
   serverData: JSON;
   showVar: boolean = false;
-  constructor(private http: HttpClient, 
-    public predict: PrediccionService) { }
+  constructor( public predict: PrediccionService,
+    public sharedService: SharedServiceService) { }
     fileProgress(fileInput: any) {
       this.fileData = <File>fileInput.target.files[0];
       this.preview();
@@ -36,8 +37,12 @@ export class PrivadoPageComponent implements OnInit {
   }
 
   onSubmit() {
-  this.predict.sendimage(this.fileData);
-  
+  this.predict.sendimage(this.fileData)
+  .subscribe(res => {
+      let serverData = res as JSON;
+      this.sharedService.setData(serverData);
+      console.log(this.sharedService.getData());
+     })
   //alert('SUCCESS !!');
   this.showVar = !this.showVar;
   }

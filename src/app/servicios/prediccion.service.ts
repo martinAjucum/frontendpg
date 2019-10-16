@@ -12,16 +12,16 @@ export class PrediccionService {
   constructor(private http : HttpClient, private sharedService: SharedServiceService) { }
 
   
-sendimage(fileData: File){ 
+sendimage(fileData: File):Observable<any>{ 
   const formData = new FormData();
   formData.append('file', fileData);
   
-    this.http.post(this.baseUrl, formData)
-       .subscribe(res => {
-        let serverData = res as JSON;
-        this.sharedService.setData(serverData);
-        console.log(serverData );
-       })
+   return this.http.post(this.baseUrl, formData)
+      //  .subscribe(res => {
+      //   let serverData = res as JSON;
+      //   this.sharedService.setData(serverData);
+      //   console.log(serverData );
+      //  })
   
 }
 
