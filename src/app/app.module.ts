@@ -33,6 +33,10 @@ import * as Charts from 'fusioncharts/fusioncharts.charts';
 // Use fcRoot function to inject FusionCharts library, and the modules you want to use
 FusionChartsModule.fcRoot(FusionCharts, Charts)
 
+// Use for notifications
+import { FlashMessagesModule } from 'angular2-flash-messages';
+import { FlashMessagesService } from 'angular2-flash-messages';
+
 
 @NgModule({
   declarations: [
@@ -52,9 +56,10 @@ FusionChartsModule.fcRoot(FusionCharts, Charts)
     AngularFireAuthModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     HttpClientModule,
-    FusionChartsModule // Include in imports
+    FusionChartsModule, // Include in imports
+    FlashMessagesModule
   ],
-  providers: [AuthService, AuthGuard],
+  providers: [AuthService, AuthGuard, FlashMessagesService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
